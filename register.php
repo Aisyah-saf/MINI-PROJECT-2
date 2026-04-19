@@ -11,6 +11,7 @@ if(isset($_POST['submit'])){
     if(empty($name) || empty($email) || empty($pass)){
         $msg = "Please fill all fields";
     } else {
+        // password hash
         $hash = password_hash($pass, PASSWORD_DEFAULT);
 
         $stmt = $conn->prepare("INSERT INTO users(name,email,password) VALUES (?,?,?)");
