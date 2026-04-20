@@ -5,8 +5,12 @@ if(!isset($_SESSION['user_id'])) header("Location: login.php"); ?>
     <div class="row justify-content-center">
         <div class="col-md-10">
             
+<<<<<<< Updated upstream
             
             <h2 class="fw-bold mb-4">Welcome <?= htmlspecialchars($_SESSION['user_name']) ?>!</h2>
+=======
+            <h2 class="fw-bold mb-4">Welcome <?= htmlspecialchars($_SESSION['name'] ?? '') ?>!</h2>
+>>>>>>> Stashed changes
             
             <hr class="w-25 mx-auto mb-5">
 
