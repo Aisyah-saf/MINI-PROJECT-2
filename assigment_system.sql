@@ -57,10 +57,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table assignment_system.users: ~2 rows (approximately)
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
-	(1, 'admin', 'admin234@gmail.com', '$2y$10$I2Txy9ZBOVbKpzF49HdwK.WAfnwyyybLkjf31oD3FStjPGEWHkVD6', 'admin'),
-	(2, 'Aisyah', 'aisyah123@gmail', '$2y$10$Yrl9nU/xDFM9FOmWI2JHDOhU2QzTwYIHXzeWDDpdGnqFeIlAJri2e', 'student');
+-- Dumping data for table assignment_system.users: ~0 rows (approximately)
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
