@@ -1,28 +1,34 @@
-<?php include 'header.php'; ?>
-
-<div class="card-box">
+<div class="card-box col-md-6 mx-auto">
 
     <h3 class="text-center mb-4">Submit Assignment</h3>
 
-    <form method="POST" enctype="multipart/form-data">
+    <?= $message; ?>
 
-        <!-- Dropdown Assignment -->
-        <select name="assignment_id" class="form-control mb-3">
-            <?php
-            $res = $conn->query("SELECT * FROM assignments");
-            while($row = $res->fetch_assoc()){
-                echo "<option value='".$row['id']."'>".$row['title']."</option>";
-            }
-            ?>
-        </select>
+    <form action="submit_assignment.php?id=<?= htmlspecialchars($assignment_id) ?>" 
+          method="POST" 
+          enctype="multipart/form-data">
 
-        <!-- File Upload -->
-        <input type="file" name="file" class="form-control mb-3">
+        <!-- SELECT ASSIGNMENT -->
+        <div class="mb-3">
+            <select name="assignment_id" class="form-control">
+                <?php
+                $res = $conn->query("SELECT * FROM assignments");
+                while($row = $res->fetch_assoc()){
+                    $selected = ($row['id'] == $assignment_id) ? "selected" : "";
+                    echo "<option value='{$row['id']}' $selected>{$row['title']}</option>";
+                }
+                ?>
+            </select>
+        </div>
 
-        <button class="btn btn-primary">Submit</button>
+        <!-- FILE INPUT -->
+        <div class="mb-3">
+            <input type="file" name="doc" class="form-control" required>
+        </div>
+
+        <!-- BUTTON -->
+        <button name="upload" class="btn btn-primary">Submit</button>
 
     </form>
 
 </div>
-
-<?php include 'footer.php'; ?>
