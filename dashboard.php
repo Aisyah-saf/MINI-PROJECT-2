@@ -9,7 +9,7 @@ if(!isset($_SESSION['user_id'])) header("Location: login.php");
     <div class="row justify-content-center">
         <div class="col-md-10">
             
-            <h2 class="fw-bold mb-4">Welcome <?= htmlspecialchars($_SESSION['username']) ?>!</h2>
+            <h2 class="fw-bold mb-4">Welcome <?= htmlspecialchars($_SESSION['username'] ?? '') ?>!</h2>
             
             <hr class="w-25 mx-auto mb-5">
 
