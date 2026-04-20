@@ -17,6 +17,4 @@ if(isset($_POST['create'])) {
         <button name="create" class="btn btn-custom">Publish Assignment</button>
     </form>
 </div>
-<?php 
-include 'footer.php'; 
-?>
+<?php include 'footer.php'; ?>
