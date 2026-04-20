@@ -23,7 +23,7 @@ if(isset($_POST['login'])) {
             
             // Store session data
             $_SESSION['user_id'] = $row['id'];
-            $_SESSION['user_name'] = $row['name'];
+            $_SESSION['username'] = $row['name'];
             $_SESSION['role'] = $row['role']; 
             
             // Redirect to dashboard
