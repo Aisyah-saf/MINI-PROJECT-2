@@ -2,7 +2,6 @@
 include 'config.php'; 
 include 'header.php';
 
-// Check login
 if(!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
