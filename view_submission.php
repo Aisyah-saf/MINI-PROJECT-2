@@ -2,10 +2,7 @@
 include 'config.php'; 
 include 'header.php';
 
-<<<<<<< HEAD
-=======
 // Pastikan user sudah login
->>>>>>> 95a277c3ff048c7410068ae391569b451962cdc4
 if(!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -14,7 +11,6 @@ if(!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
 
-// Nota: Jika ralat masih berlaku, sila semak nama kolum dalam pangkalan data anda (contoh: 'file' atau 'file_path')
 if($role == 'admin') {
     $stmt = $conn->prepare("SELECT users.name as student, assignments.title, submissions.file 
                             FROM submissions 
