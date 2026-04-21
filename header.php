@@ -17,7 +17,7 @@ body {
 }
 
 nav {
-    background: #333;
+    background: #64a1e7;
     padding: 15px;
 }
 
@@ -28,7 +28,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #28a745;
+    color: #226732;
 }
 
 .auth-box {
@@ -60,12 +60,28 @@ nav a:hover {
 </div>
 
 <div>
+    <div>
 <?php if(isset($_SESSION['user_id'])): ?>
-    <a href="logout.php">Logout</a>
+
+    <a href="dashboard.php">Dashboard</a>
+
+    <?php if($_SESSION['role'] == 'student'): ?>
+        <a href="submit_assignment.php">Submit Assignment</a>
+        <a href="view_submission.php">View Submission</a>
+    <?php endif; ?>
+
+    <?php if($_SESSION['role'] == 'admin'): ?>
+        <a href="create_assignment.php">Create Assignment</a>
+        <a href="view_submission.php">View Submission</a>
+    <?php endif; ?>
+
+    <a href="logout.php" class="btn btn-danger btn-sm px-3">Logout</a>
+
 <?php else: ?>
-    <a href="login.php">Login</a>
-    <a href="register.php">Register</a>
+    <a href="login.php" class="btn btn-light btn-sm px-3 me-2">Login</a>
+    <a href="register.php" class="btn btn-light btn-sm px-3">Register</a>
 <?php endif; ?>
+</div>
 </div>
 </div>
 </nav>
