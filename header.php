@@ -17,7 +17,7 @@ body {
 }
 
 nav {
-    background: #333;
+    background: #64a1e7;
     padding: 15px;
 }
 
@@ -61,10 +61,10 @@ nav a:hover {
 
 <div>
 <?php if(isset($_SESSION['user_id'])): ?>
-    <a href="logout.php">Logout</a>
+    <a href="logout.php" class="btn btn-danger btn-sm px-3">Logout</a>
 <?php else: ?>
-    <a href="login.php">Login</a>
-    <a href="register.php">Register</a>
+    <a href="login.php" class="btn btn-light btn-sm px-3 me-2">Login</a>
+    <a href="register.php" class="btn btn-light btn-sm px-3">Register</a>
 <?php endif; ?>
 </div>
 </div>
