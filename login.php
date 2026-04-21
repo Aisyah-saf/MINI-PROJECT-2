@@ -17,7 +17,7 @@ if(isset($_POST['login'])){
         $user=$res->fetch_assoc();
         if(password_verify($pass,$user['password'])){
             $_SESSION['user_id']=$user['id'];
-            $_SESSION['name']=$user['name'];
+            $_SESSION['user_name']=$user['name'];
             $_SESSION['role']=$user['role'];
 
             header("Location: dashboard.php");
