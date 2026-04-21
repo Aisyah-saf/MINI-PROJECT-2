@@ -1,6 +1,10 @@
 <?php 
+<<<<<<< HEAD
 include 'config.php'; 
 include 'header.php';
+=======
+include 'config.php'; include 'header.php';
+>>>>>>> 95a277c3ff048c7410068ae391569b451962cdc4
 if($_SESSION['role'] != 'admin') header("Location: dashboard.php");
 
 if(isset($_POST['create'])) {
@@ -18,6 +22,10 @@ if(isset($_POST['create'])) {
         <button name="create" class="btn btn-custom">Publish Assignment</button>
     </form>
 </div>
+<<<<<<< HEAD
 <?php 
 include 'footer.php'; 
 ?>
+=======
+<?php include 'footer.php'; ?>
+>>>>>>> 95a277c3ff048c7410068ae391569b451962cdc4
