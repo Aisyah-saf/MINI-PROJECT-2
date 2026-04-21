@@ -28,7 +28,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #28a745;
+    color: #226732;
 }
 
 .auth-box {
