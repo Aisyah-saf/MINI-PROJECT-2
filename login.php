@@ -20,33 +20,9 @@ if(isset($_POST['login'])){
             $_SESSION['user_name']=$user['name'];
             $_SESSION['role']=$user['role'];
 
-<<<<<<< Updated upstream
             header("Location: dashboard.php");
             exit();
         }
-=======
-    if($row = $result->fetch_assoc()) {
-        // Verify hashed password 
-        if(password_verify($password, $row['password'])) {
-            
-            // Prevent Session Fixation 
-            session_regenerate_id(true); 
-            
-            // Store session data
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['name'] = $row['name'];
-            $_SESSION['role'] = $row['role']; 
-            
-            // Redirect to dashboard
-            header("Location: dashboard.php");
-            exit();
-                
-        } else {
-            $message = "<p class='error text-danger text-center'>Wrong password!</p>";
-        }
-    } else {
-        $message = "<p class='error text-danger text-center'>User not found!</p>";
->>>>>>> Stashed changes
     }
     $msg="Invalid username or password.";
 }
