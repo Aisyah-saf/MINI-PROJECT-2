@@ -2,7 +2,10 @@
 include 'config.php'; 
 include 'header.php';
 
+<<<<<<< HEAD
+=======
 // Pastikan user sudah login
+>>>>>>> 95a277c3ff048c7410068ae391569b451962cdc4
 if(!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();

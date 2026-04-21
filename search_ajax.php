@@ -1,21 +1,17 @@
 <?php
 include 'config.php';
+$q = isset($_GET['q']) ? "%" . $_GET['q'] . "%" : "%%";
 
-header('Content-Type: application/json');
-
-$q = $_GET['q'] ?? '';
-$search = "%$q%";
-
-$stmt = $conn->prepare("SELECT id, title, description FROM assignments WHERE title LIKE ?");
-$stmt->bind_param("s", $search);
+$stmt = $conn->prepare("SELECT * FROM assignments WHERE title LIKE ?");
+$stmt->bind_param("s", $q);
 $stmt->execute();
-
 $result = $stmt->get_result();
 
-$data = [];
-
+$assignments = [];
 while($row = $result->fetch_assoc()) {
-    $data[] = $row;
+    $assignments[] = $row;
 }
 
-echo json_encode($data);
+header('Content-Type: application/json');
+echo json_encode($assignments);
+?>
