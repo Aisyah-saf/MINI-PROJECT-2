@@ -32,10 +32,11 @@ nav a:hover {
 }
 
 .auth-box {
-    min-height: 90vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 70px;
 }
 
 .card-box {
