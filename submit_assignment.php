@@ -1,39 +1,3 @@
-<<<<<<< HEAD
-<div class="card-box col-md-6 mx-auto">
-
-    <h3 class="text-center mb-4">Submit Assignment</h3>
-
-    <?= $message; ?>
-
-    <form action="submit_assignment.php?id=<?= htmlspecialchars($assignment_id) ?>" 
-          method="POST" 
-          enctype="multipart/form-data">
-
-        <!-- SELECT ASSIGNMENT -->
-        <div class="mb-3">
-            <select name="assignment_id" class="form-control">
-                <?php
-                $res = $conn->query("SELECT * FROM assignments");
-                while($row = $res->fetch_assoc()){
-                    $selected = ($row['id'] == $assignment_id) ? "selected" : "";
-                    echo "<option value='{$row['id']}' $selected>{$row['title']}</option>";
-                }
-                ?>
-            </select>
-        </div>
-
-        <!-- FILE INPUT -->
-        <div class="mb-3">
-            <input type="file" name="doc" class="form-control" required>
-        </div>
-
-        <!-- BUTTON -->
-        <button name="upload" class="btn btn-primary">Submit</button>
-
-    </form>
-
-</div>
-=======
 <?php 
 include 'config.php'; 
 include 'header.php';
@@ -60,18 +24,27 @@ if(isset($_POST['upload'])) {
         $file_name = time() . "_" . basename($_FILES['doc']['name']);
         $path = $folder . $file_name;
 
-        if(move_uploaded_file($_FILES['doc']['tmp_name'], $path)) {
+        $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        // optional validation (PDF only)
+        if($ext != "pdf"){
+            $message = "<div class='alert alert-danger'>Only PDF allowed</div>";
+        }
+        else if(move_uploaded_file($_FILES['doc']['tmp_name'], $path)){
+
             $stmt = $conn->prepare("INSERT INTO submissions (user_id, assignment_id, file) VALUES (?, ?, ?)");
             $stmt->bind_param("iis", $_SESSION['user_id'], $assignment_id, $file_name);
-            
-            if($stmt->execute()) {
-                $message = "<div class='success'><strong>Success!</strong> Assignment turned in.</div>";
+
+            if($stmt->execute()){
+                $message = "<div class='alert alert-success'>Assignment Submitted Successfully!</div>";
             } else {
-                $message = "<div class='error'>Database Error: " . $conn->error . "</div>";
+                $message = "<div class='alert alert-danger'>Database error</div>";
             }
+
         } else {
             $message = "<div class='error'>Failed to move the file to the uploads folder.</div>";
         }
+
     } else {
         $message = "<div class='error'>Please select a file to upload.</div>";
     }
@@ -97,7 +70,21 @@ if(isset($_POST['upload'])) {
             <a href="dashboard.php" class="text-decoration-none text-secondary small">&larr; Back to Dashboard</a>
         </div>
     </div>
+
+    <!-- FILE INPUT -->
+    <div class="mb-3">
+        <input type="file" name="doc" class="form-control" required>
+    </div>
+
+    <!-- BUTTON -->
+    <button name="upload" class="btn btn-primary w-100">Submit</button>
+
+</form>
+
+<div class="text-center mt-3">
+    <a href="dashboard.php">Back to Dashboard</a>
+</div>
+
 </div>
 
 <?php include 'footer.php'; ?>
->>>>>>> 95a277c3ff048c7410068ae391569b451962cdc4
