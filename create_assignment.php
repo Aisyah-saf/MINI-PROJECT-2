@@ -1,5 +1,5 @@
 <?php 
-include 'config.php'; 
+include 'db.php'; 
 include 'header.php';
 if($_SESSION['role'] != 'admin') header("Location: dashboard.php");
 
