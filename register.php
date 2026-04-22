@@ -1,5 +1,4 @@
 <?php 
-include 'config.php';
 include 'header.php'; 
 
 $msg = "";
@@ -11,7 +10,11 @@ if(isset($_POST['register'])){
 
     if(empty($name) || empty($email) || empty($password)){
         $msg = "<div class='alert alert-danger text-center'>All fields required</div>";
-    } else {
+    }
+    else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $msg = "<div class='alert alert-danger text-center'>Invalid email format</div>";
+    }
+    else {
 
         $check = $conn->prepare("SELECT id FROM users WHERE email=?");
         $check->bind_param("s",$email);
@@ -45,9 +48,9 @@ if(isset($_POST['register'])){
 <?= $msg ?>
 
 <form method="POST">
-<input name="name" class="form-control mb-3" placeholder="Name">
-<input name="email" class="form-control mb-3" placeholder="Email">
-<input name="password" type="password" class="form-control mb-3" placeholder="Password">
+<input name="name" class="form-control mb-3" placeholder="Name" required>
+<input name="email" type="email" class="form-control mb-3" placeholder="Email" required>
+<input name="password" type="password" class="form-control mb-3" placeholder="Password" required>
 
 <div class="text-center">
 <button name="register" class="btn btn-primary px-4">Register</button>
