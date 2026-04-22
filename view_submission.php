@@ -11,9 +11,8 @@ if(!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
 
-// Nota: Jika ralat masih berlaku, sila semak nama kolum dalam pangkalan data anda (contoh: 'file' atau 'file_path')
 if($role == 'admin') {
-    $stmt = $conn->prepare("SELECT users.username as student, assignments.title, submissions.file 
+    $stmt = $conn->prepare("SELECT users.name as student, assignments.title, submissions.file 
                             FROM submissions 
                             JOIN users ON submissions.user_id = users.id 
                             JOIN assignments ON submissions.assignment_id = assignments.id");
