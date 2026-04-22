@@ -52,6 +52,13 @@ if(isset($_POST['register'])){
 <input name="email" type="email" class="form-control mb-3" placeholder="Email" required>
 <input name="password" type="password" class="form-control mb-3" placeholder="Password" required>
 
+<div class="mb-3">
+    <select name="role" class="form-select">
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+    </select>
+</div>
+
 <div class="text-center">
 <button name="register" class="btn btn-primary px-4">Register</button>
 </div>
