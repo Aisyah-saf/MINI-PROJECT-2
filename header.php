@@ -1,4 +1,7 @@
 <?php 
+if(session_status() == PHP_SESSION NONE){
+    session_start();
+}
 include 'db.php'; 
 ?>
 
