@@ -1,61 +1,69 @@
-<?php include 'header.php'; ?>
+<?php 
+include 'header.php'; 
 
-<?php
 $msg = "";
 
-if(isset($_POST['submit'])){
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $pass = $_POST['password'];
+if(isset($_POST['register'])){
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
 
-    if(empty($name) || empty($email) || empty($pass)){
-        $msg = "Please fill all fields";
-    } else {
-        $hash = password_hash($pass, PASSWORD_DEFAULT);
+    if(empty($name) || empty($email) || empty($password)){
+        $msg = "<div class='alert alert-danger text-center'>All fields required</div>";
+    }
+    else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $msg = "<div class='alert alert-danger text-center'>Invalid email format</div>";
+    }
+    else {
 
-        $stmt = $conn->prepare("INSERT INTO users(name,email,password) VALUES (?,?,?)");
-        $stmt->bind_param("sss",$name,$email,$hash);
+        $check = $conn->prepare("SELECT id FROM users WHERE email=?");
+        $check->bind_param("s",$email);
+        $check->execute();
+        $check->store_result();
 
-        if($stmt->execute()){
-            header("Location: login.php");
+        if($check->num_rows > 0){
+            $msg = "<div class='alert alert-danger text-center'>Email already exists</div>";
         } else {
-            $msg = "Error register";
+
+            $pass = password_hash($password, PASSWORD_DEFAULT);
+
+            $stmt=$conn->prepare("INSERT INTO users(name,email,password,role) VALUES (?,?,?,'student')");
+            $stmt->bind_param("sss",$name,$email,$pass);
+
+            if($stmt->execute()){
+                $msg = "<div class='alert alert-success text-center'>Registered!</div>";
+            } else {
+                $msg = "<div class='alert alert-danger'>Error registering</div>";
+            }
         }
     }
 }
 ?>
 
-<div class="auth-container">
-    <div class="auth-card">
+<div class="auth-box">
+<div class="card-box">
 
-        <h3 class="auth-title">Register</h3>
+<h3 class="text-center mb-4">Register</h3>
 
-        <?php if($msg) echo "<div class='error'>$msg</div>"; ?>
+<?= $msg ?>
 
-        <form method="POST">
+<form method="POST">
+<input name="name" class="form-control mb-3" placeholder="Name" required>
+<input name="email" type="email" class="form-control mb-3" placeholder="Email" required>
+<input name="password" type="password" class="form-control mb-3" placeholder="Password" required>
 
-            <div class="input-group mb-3">
-                <input type="text" name="name" class="form-control" placeholder="Name">
-            </div>
+<div class="text-center">
+<button name="register" class="btn btn-primary px-4">Register</button>
+</div>
+</form>
 
-            <div class="input-group mb-3">
-                <input type="email" name="email" class="form-control" placeholder="Email">
-            </div>
+<p class="text-center mt-3">
+Already have account? <a href="login.php">Login here</a>
+</p>
 
-            <div class="input-group mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Password">
-            </div>
-
-            <button name="submit" class="btn-custom">Register</button>
-
-        </form>
-
-        <div class="link">
-            Already have account? <a href="login.php">Login here</a>
-        </div>
-
-    </div>
+</div>
 </div>
 
-</body>
-</html>
+<?php 
+include 'footer.php'; 
+?>
