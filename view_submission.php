@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'config.php'; 
 include 'header.php';
 
@@ -12,7 +12,7 @@ $user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
 
 if($role == 'admin') {
-    $stmt = $conn->prepare("SELECT users.name as student, assignments.title, submissions.file 
+    $stmt = $conn->prepare("SELECT users.username as student, assignments.title, submissions.file 
                             FROM submissions 
                             JOIN users ON submissions.user_id = users.id 
                             JOIN assignments ON submissions.assignment_id = assignments.id");
@@ -23,25 +23,21 @@ if($role == 'admin') {
                             WHERE submissions.user_id = ?");
     $stmt->bind_param("i", $user_id);
 }
-
-$stmt->execute();
-$res = $stmt->get_result();
-?>
-
 <div class="container mt-5">
     <div class="card shadow-sm border-0 p-4">
         <h3 class="fw-bold mb-4">Submission History</h3>
-        
         <div class="table-responsive">
             <table class="table table-hover mt-3">
                 <thead class="table-dark">
                     <tr>
+    
                         <?php if($role == 'admin') echo "<th>Student</th>"; ?>
                         <th>Assignment Title</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+
                     <?php if($res->num_rows > 0): ?>
                         <?php while($row = $res->fetch_assoc()): ?>
                         <tr>
@@ -51,22 +47,22 @@ $res = $stmt->get_result();
                                 <a href="uploads/<?= htmlspecialchars($row['file']) ?>" class="btn btn-sm btn-success px-3" download>
                                     Download File
                                 </a>
-                            </td>
-                        </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="3" class="text-center text-muted">No submissions found.</td>
-                        </tr>
-                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
+        <div class="mt-3 text-center">
+            <a href="dashboard.php" class="btn btn-secondary btn-sm">
+                Back to Dashboard
+            </a>
         
         <div class="mt-3">
             <a href="dashboard.php" class="btn btn-secondary btn-sm">Back to Dashboard</a>
         </div>
+
     </div>
 </div>
 
+<?php 
+include 'footer.php'; 
+?>
 <?php include 'footer.php'; ?>
