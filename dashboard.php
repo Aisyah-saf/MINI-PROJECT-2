@@ -1,5 +1,8 @@
-<?php include 'db.php'; include 'header.php'; 
-if(!isset($_SESSION['user_id'])) header("Location: login.php"); ?>
+<?php 
+include 'db.php'; 
+include 'header.php'; 
+if(!isset($_SESSION['user_id'])) header("Location: login.php"); 
+?>
 
 <style>
     body {
