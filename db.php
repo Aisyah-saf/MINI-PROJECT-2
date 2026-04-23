@@ -1,8 +1,13 @@
 <?php 
-//session_start();  
-$conn = new mysqli("localhost","root","","assignment_system"); 
+session_start(); 
 
-if($conn->connect_error){ 
-    die("Connection failed"); 
-}
+$host = "localhost"; 
+$user = "root"; 
+$pass = ""; 
+$db   = "assignment_system"; 
+$conn = new mysqli($host, $user, $pass, $db); 
+
+if ($conn->connect_error) { 
+    die("Connection failed: " . $conn->connect_error); 
+} 
 ?> 
