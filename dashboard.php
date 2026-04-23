@@ -64,8 +64,6 @@ const loadData = (query = '') => {
     }); 
 }; 
 
-  
-
 searchInput.addEventListener('input', () => loadData(searchInput.value)); 
 window.onload = () => loadData(); 
 
