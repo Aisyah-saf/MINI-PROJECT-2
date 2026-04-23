@@ -1,8 +1,8 @@
-<?php
+<?php 
 include 'db.php'; 
 include 'header.php';
 
-// Check login
+// Pastikan user sudah login
 if(!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -11,7 +11,7 @@ if(!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
 
-// Fetch submissions
+// Nota: Jika ralat masih berlaku, sila semak nama kolum dalam pangkalan data anda (contoh: 'file' atau 'file_path')
 if($role == 'admin') {
     $stmt = $conn->prepare("SELECT users.name as student, assignments.title, submissions.file 
                             FROM submissions 
@@ -29,13 +29,78 @@ $stmt->execute();
 $res = $stmt->get_result();
 ?>
 
-<div class="container mt-5">
-    <div class="card shadow-sm border-0 p-4">
-        <h3 class="fw-bold mb-4">Submission History</h3>
+<style>
+    body {
+        background: linear-gradient(135deg, #eef2f3, #dfe9f3);
+        min-height: 100vh;
+    }
 
+    .history-card {
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        padding: 25px;
+    }
+
+    .title {
+        font-weight: 700;
+        color: #333;
+    }
+
+    .table thead {
+        background: linear-gradient(45deg, #343a40, #212529);
+        color: white;
+    }
+
+    .table tbody tr {
+        transition: 0.3s;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+        transform: scale(1.01);
+    }
+
+    .btn-success {
+        border-radius: 20px;
+        padding: 5px 15px;
+        font-size: 14px;
+        background: linear-gradient(45deg, #28a745, #20c997);
+        border: none;
+        transition: 0.3s;
+    }
+
+    .btn-success:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+    .btn-secondary {
+        border-radius: 20px;
+        padding: 5px 15px;
+    }
+
+    .header-icon {
+        font-size: 35px;
+    }
+</style>
+
+<div class="container mt-5">
+
+    <div class="history-card">
+
+        <!-- HEADER -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="title mb-0">Submission History</h3>
+                <small class="text-muted">View and download submitted assignments</small>
+            </div>
+        </div>
+
+        <!-- TABLE -->
         <div class="table-responsive">
-            <table class="table table-hover mt-3">
-                <thead class="table-dark">
+            <table class="table table-hover align-middle mt-3">
+                <thead>
                     <tr>
                         <?php if($role == 'admin') echo "<th>Student</th>"; ?>
                         <th>Assignment Title</th>
@@ -47,37 +112,40 @@ $res = $stmt->get_result();
                     <?php if($res->num_rows > 0): ?>
                         <?php while($row = $res->fetch_assoc()): ?>
                         <tr>
-                            <?php if($role == 'admin'): ?>
-                                <td class="align-middle"><?= htmlspecialchars($row['student']) ?></td>
-                            <?php endif; ?>
-
-                            <td class="align-middle"><?= htmlspecialchars($row['title']) ?></td>
+                            <?php if($role == 'admin') echo "<td>".htmlspecialchars($row['student'])."</td>"; ?>
+                            
+                            <td>
+                                 <?= htmlspecialchars($row['title']) ?>
+                            </td>
 
                             <td class="text-center">
                                 <a href="uploads/<?= htmlspecialchars($row['file']) ?>" 
-                                   class="btn btn-sm btn-success px-3" download>
-                                   Download File
+                                   class="btn btn-sm btn-success" download>
+                                    ⬇ Download
                                 </a>
                             </td>
                         </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="3" class="text-center text-muted">No submissions found.</td>
+                            <td colspan="3" class="text-center text-muted py-4">
+                                 No submissions found.
+                            </td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
-
             </table>
         </div>
 
-        <div class="mt-3">
-            <a href="dashboard.php" class="btn btn-secondary btn-sm">Back to Dashboard</a>
+        <!-- BACK BUTTON -->
+        <div class="mt-3 text-end">
+            <a href="dashboard.php" class="btn btn-secondary btn-sm">
+                ← Back to Dashboard
+            </a>
         </div>
 
     </div>
+
 </div>
 
-<?php 
-include 'footer.php'; 
-?>
+<?php include 'footer.php'; ?>
