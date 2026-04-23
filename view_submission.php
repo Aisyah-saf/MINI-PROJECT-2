@@ -2,7 +2,7 @@
 include 'db.php'; 
 include 'header.php';
 
-// Pastikan user sudah login
+//Make sure the user is logged in
 if(!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -11,7 +11,7 @@ if(!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
 
-// Query perlu mengambil 'id' dari table submissions untuk proses Edit & Delete
+// Query needs to retrieve 'id' from table submissions for Edit & Delete process
 if($role == 'admin') {
     $stmt = $conn->prepare("SELECT submissions.id, users.name as student, assignments.title, submissions.file 
                             FROM submissions 
