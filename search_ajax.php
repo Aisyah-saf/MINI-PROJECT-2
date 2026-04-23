@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'db.php';
 $q = isset($_GET['q']) ? "%" . $_GET['q'] . "%" : "%%";
 
 $stmt = $conn->prepare("SELECT * FROM assignments WHERE title LIKE ?");
