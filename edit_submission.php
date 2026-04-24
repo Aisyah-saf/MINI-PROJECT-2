@@ -48,7 +48,7 @@ if(isset($_POST['update'])) {
             exit();
         }
     } else {
-        $message = "<p class='error text-center'>Sila pilih fail baru untuk diubah.</p>";
+        $message = "<p class='error text-center'>Please choose a new file to upload.</p>";
     }
 }
 ?>
