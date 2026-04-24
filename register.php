@@ -24,7 +24,7 @@ if(isset($_POST['register'])) {
 
         if($result->num_rows > 0) {
             // When email is already registered
-            $message = "<div class='alert alert-warning text-center'>Email already exists</div>";
+            $message = "<div class='alert alert-warning text-center'>php Email already exists</div>";
         } else {
             // Hash password for security 
             $hashed = password_hash($password, PASSWORD_DEFAULT);
@@ -36,7 +36,7 @@ if(isset($_POST['register'])) {
             if($stmt->execute()) {
                 $message = "<div class='alert alert-success text-center'>Registration successful</div>";
             } else {
-                $message = "<div class='alert alert-danger text-center'>Registration failed</div>";
+                $message = "<div class='alert alert-danger text-center'>php Registration failed</div>";
             }
         }
     }
